@@ -1,15 +1,17 @@
 # some settings
 set -e # stop on error
-#set -x # print the commands we execute
+set -x # print the commands we execute
 
 ### ADJUST THOSE:
 
-CLICKHOUSE_WORKING_FOLDER=/var/lib/clickhouse
+# CLICKHOUSE_WORKING_FOLDER=/var/lib/clickhouse
+CLICKHOUSE_WORKING_FOLDER=/data/data/clickhouse
 
 # should be same disk as CLICKHOUSE_WORKING_FOLDER! (otherwise we can't use hardlinks)
-CLICKHOUSE_TOOLSET_FOLDER=/var/lib/clickhouse/clickhouse-toolset
+# CLICKHOUSE_TOOLSET_FOLDER=/var/lib/clickhouse/clickhouse-toolset
+CLICKHOUSE_TOOLSET_FOLDER=/data/data/clickhouse/clickhouse-toolset
 
-BACKUP_FOLDER="${CLICKHOUSE_TOOLSET_FOLDER}/backup2020-11-10"
+BACKUP_FOLDER="${CLICKHOUSE_TOOLSET_FOLDER}/backup2022-feb-03"
 
 # if you need some adjustments - like username/password/port/listened host or some parameter - adjust it here.
 CLICKHOUSE_CLIENT='clickhouse-client --host=127.0.0.1 --max_query_size=10000000'
@@ -21,8 +23,9 @@ CLICKHOUSE_EXTRACT_FROM_CONFIG='clickhouse-extract-from-config --config-file /et
 # otherwise we will have replicated data
 
 # if last character of the hostname is 1 we are on the master replica.
-HOSTNAME_SHORT=$(hostname -s)
-MASTER_REPLICA=$( [ "${HOSTNAME_SHORT: -1}" == "1" ] && echo 'true' || echo 'false' )
+# HOSTNAME_SHORT=$(hostname -s)
+# MASTER_REPLICA=$( [ "${HOSTNAME_SHORT: -1}" == "1" ] && echo 'true' || echo 'false' )
+MASTER_REPLICA=$(echo 'true')
 
 ### TODO: expose settings above via command-line args
 
